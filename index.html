@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Amor Sin Fronteras - ¿Quieres Ser Mi Novia?</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome para íconos -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600;700&family=Great+Vibes&family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Canvas Confetti -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+    <style>
+        body {
+            font-family: 'Quicksand', sans-serif;
+            background: linear-gradient(135deg, #fdf1f3 0%, #fbe8ec 50%, #f7d6de 100%);
+            overflow-x: hidden;
+        }
+
+        .font-romantic {
+            font-family: 'Great Vibes', cursive;
+        }
+
+        .font-cursive {
+            font-family: 'Dancing Script', cursive;
+        }
+
+        /* Animación de Fondo con Corazones y Destellos */
+        .hearts-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+            overflow: hidden;
+        }
+
+        .heart-float {
+            position: absolute;
+            list-style: none;
+            display: block;
+            opacity: 0.6;
+            bottom: -150px;
+            animation: floatUp 18s linear infinite;
+            color: #e63946;
+        }
+
+        @keyframes floatUp {
+            0% {
+                transform: translateY(0) rotate(0deg) scale(0.8);
+                opacity: 0.7;
+            }
+            100% {
+                transform: translateY(-120vh) rotate(720deg) scale(1.2);
+                opacity: 0;
+            }
+        }
+
+        /* Animación para Tarjetas Volteables (Flip Cards) */
+        .card-flip {
+            perspective: 1000px;
+        }
+
+        .card-inner {
+            transition: transform 0.6s;
+            transform-style: preserve-3d;
+        }
+
+        .card-inner.is-flipped {
+            transform: rotateY(180deg);
+        }
+
+        .card-front, .card-back {
+            backface-visibility: hidden;
+            -webkit-backface-visibility: hidden;
+        }
+
+        .card-back {
+            transform: rotateY(180deg);
+        }
+
+        /* Pulsación romántica */
+        .pulse-heart {
+            animation: pulse 1.6s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.15);
+            }
+        }
+
+        .glow-effect {
+            box-shadow: 0 0 30px rgba(225, 29, 72, 0.35);
+        }
+
+        /* Animación de línea punteada de distancia */
+        .flight-line {
+            stroke-dasharray: 8;
+            animation: dash 2s linear infinite;
+        }
+
+        @keyframes dash {
+            to {
+                stroke-dashoffset: -16;
+            }
+        }
+    </style>
+</head>
+<body class="bg-gradient-to-br from-rose-100 via-pink-100 to-red-100 min-h-screen text-gray-800 relative pb-16">
+
+    <!-- Fondo de Corazones Flotantes -->
+    <ul class="hearts-bg" id="heartsContainer"></ul>
+
+    <!-- Encabezado Romántico a Distancia -->
+    <header class="relative z-10 text-center pt-10 pb-6 px-4">
+        <div class="inline-flex items-center gap-3 p-3 px-5 rounded-full bg-white/80 backdrop-blur-md shadow-md mb-4 pulse-heart border border-rose-200">
+            <i class="fa-solid fa-car-side text-rose-500 text-xl"></i>
+            <i class="fa-solid fa-heart text-red-500 text-2xl"></i>
+            <i class="fa-solid fa-location-dot text-rose-500 text-xl"></i>
+        </div>
+        <h1 class="font-romantic text-5xl md:text-7xl text-rose-700 drop-shadow-sm">Tan Cerca de Tu Corazón</h1>
+        <p class="text-rose-800/90 mt-2 text-lg md:text-xl font-medium max-w-xl mx-auto">
+            280 kilómetros no son nada cuando dos corazones laten en el mismo tono... ✨
+        </p>
+    </header>
+
+    <main class="max-w-4xl mx-auto px-4 relative z-10 space-y-12">
+
+        <!-- Mapeo y Contador Simbólico de la Distancia (280 km) -->
+        <section class="bg-white/80 backdrop-blur-md border border-rose-200 rounded-3xl p-6 md:p-8 shadow-xl text-center">
+            <div class="flex justify-between items-center max-w-md mx-auto mb-4 relative">
+                <!-- Foto Origen (En blanco y negro) -->
+                <div class="flex flex-col items-center">
+                    <div class="w-16 h-16 md:w-20 md:h-20 rounded-full overflow-hidden border-4 border-rose-500 shadow-lg relative">
+                        <img src="1.jpg" alt="Mi foto" class="w-full h-full object-cover">
+                    </div>
+                    <span class="text-xs font-bold text-rose-600 mt-2">Yo</span>
+                </div>
+
+                <!-- Indicador de 280 KM -->
+                <div class="flex-1 px-2 md:px-4 relative flex flex-col items-center justify-center">
+                    <span class="text-xs font-bold text-rose-500 bg-rose-100 px-3 py-1 rounded-full mb-1 border border-rose-200">
+                        280 KM
+                    </span>
+                    <svg class="w-full h-6" viewBox="0 0 100 20">
+                        <path d="M 0,10 Q 50,0 100,10" fill="none" stroke="#f43f5e" stroke-width="2" class="flight-line"/>
+                    </svg>
+                    <i class="fa-solid fa-heart text-rose-500 absolute text-sm pulse-heart bottom-0"></i>
+                </div>
+
+                <!-- Foto Destino (La niña) -->
+                <div class="flex flex-col items-center">
+                    <div class="w-16 h-16 md:w-20 md:h-20 rounded-full overflow-hidden border-4 border-pink-500 shadow-lg relative">
+                        <img src="2.jpg" alt="Tu foto" class="w-full h-full object-cover">
+                    </div>
+                    <span class="text-xs font-bold text-rose-600 mt-2">Tú</span>
+                </div>
+            </div>
+
+            <h3 class="font-cursive text-2xl md:text-3xl text-rose-700 font-bold mb-2">
+                "Estamos en el mismo país, bajo el mismo cielo"
+            </h3>
+            <p class="text-sm text-gray-600 max-w-lg mx-auto">
+                280 km son solo unas pocas horas de carretera, un viaje corto que con gusto recorrería mil veces con tal de ver esa sonrisa única.
+            </p>
+        </section>
+
+        <!-- Tarjetas Volteables (Flip Cards) -->
+        <section>
+            <div class="text-center mb-6">
+                <h2 class="font-cursive text-3xl md:text-4xl text-rose-700">Razones por las que te elijo a ti</h2>
+                <p class="text-sm text-gray-600">Toca cada tarjeta para descubrir lo que siento</p>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+                
+                <!-- Card 1: Texto actualizado de los 280 KM -->
+                <div class="card-flip h-52 cursor-pointer" onclick="flipCard(this)">
+                    <div class="card-inner relative w-full h-full duration-500 shadow-xl rounded-2xl">
+                        <div class="card-front absolute w-full h-full bg-white/80 backdrop-blur-md rounded-2xl border-2 border-rose-200 p-6 flex flex-col justify-center items-center text-center">
+                            <i class="fa-solid fa-heart-pulse text-4xl text-rose-500 mb-3"></i>
+                            <h3 class="font-bold text-lg text-rose-700">280 KM No Son Nada</h3>
+                            <span class="text-xs text-rose-400 mt-2">Haz clic para descubrir</span>
+                        </div>
+                        <div class="card-back absolute w-full h-full bg-gradient-to-br from-rose-500 to-pink-500 text-white rounded-2xl p-6 flex flex-col justify-center items-center text-center">
+                            <p class="text-xs md:text-sm font-medium">Aunque haya kilómetros entre nosotros, tú estás presente en todo lo que hago. La distancia solo hace que deseara estar a tu lado con más ganas.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 2: Los Próximos Viajes -->
+                <div class="card-flip h-52 cursor-pointer" onclick="flipCard(this)">
+                    <div class="card-inner relative w-full h-full duration-500 shadow-xl rounded-2xl">
+                        <div class="card-front absolute w-full h-front bg-white/80 backdrop-blur-md rounded-2xl border-2 border-rose-200 p-6 flex flex-col justify-center items-center text-center">
+                            <i class="fa-solid fa-road text-4xl text-amber-500 mb-3"></i>
+                            <h3 class="font-bold text-lg text-rose-700">El Camino</h3>
+                            <span class="text-xs text-rose-400 mt-2">Haz clic para descubrir</span>
+                        </div>
+                        <div class="card-back absolute w-full h-full bg-gradient-to-br from-rose-500 to-pink-500 text-white rounded-2xl p-6 flex flex-col justify-center items-center text-center">
+                            <p class="text-xs md:text-sm font-medium">Cada kilómetro que nos separa es solo una motivación más para tomar la carretera e ir corriendo a darte ese abrazo tan especial.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 3: El Futuro -->
+                <div class="card-flip h-52 cursor-pointer" onclick="flipCard(this)">
+                    <div class="card-inner relative w-full h-full duration-500 shadow-xl rounded-2xl">
+                        <div class="card-front absolute w-full h-full bg-white/80 backdrop-blur-md rounded-2xl border-2 border-rose-200 p-6 flex flex-col justify-center items-center text-center">
+                            <i class="fa-solid fa-heart-circle-bolt text-4xl text-red-500 mb-3"></i>
+                            <h3 class="font-bold text-lg text-rose-700">Nuestro Momento</h3>
+                            <span class="text-xs text-rose-400 mt-2">Haz clic para descubrir</span>
+                        </div>
+                        <div class="card-back absolute w-full h-full bg-gradient-to-br from-rose-500 to-pink-500 text-white rounded-2xl p-6 flex flex-col justify-center items-center text-center">
+                            <p class="text-xs md:text-sm font-medium">Quiero compartir mis días contigo, planear nuestras visitas, disfrutar nuestros momentos juntos y hacer que cada encuentro valga totalmente la pena.</p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- Carta emotiva de Amor a Distancia -->
+        <section class="bg-white/80 backdrop-blur-md border border-rose-200 rounded-3xl p-6 md:p-8 shadow-lg text-center max-w-2xl mx-auto relative overflow-hidden">
+            <div class="absolute -top-6 -right-6 text-rose-100 opacity-50 text-9xl font-serif select-none pointer-events-none">❤️</div>
+            <i class="fa-solid fa-envelope-open-text text-4xl text-rose-500 mb-3"></i>
+            <h2 class="font-cursive text-3xl text-rose-600 mb-3">Para ti, de todo corazón...</h2>
+            <p class="text-gray-700 leading-relaxed italic text-base md:text-lg">
+                "Aunque hoy nos separen 280 kilómetros, sé perfectamente que estás presente en cada uno de mis días. Estar en el mismo país me recuerda que un abrazo tuyo siempre está al alcance de un viaje corto. No me importa la distancia cuando la persona del otro lado eres tú. Eres lo más bonito que me ha pasado."
+            </p>
+        </section>
+
+        <!-- Petición de Novia (Pregunta Principal) -->
+        <section id="proposalSection" class="bg-gradient-to-r from-rose-600 via-pink-600 to-red-600 rounded-3xl p-8 md:p-12 shadow-2xl text-center text-white relative overflow-hidden glow-effect my-8">
+            <div class="relative z-10">
+                <div class="text-5xl md:text-6xl mb-4">
+                    🚘 💖 💌
+                </div>
+                <h2 class="font-romantic text-5xl md:text-7xl mb-6 drop-shadow-md">
+                    ¿Quieres Ser Mi Novia??
+                </h2>
+                <p class="text-pink-100 text-base md:text-lg mb-8 max-w-md mx-auto font-medium">
+                    Prometo recorrer cada uno de esos 280 km con una sonrisa, hacerte feliz todos los días y demostrarte cuánto te quiero.
+                </p>
+
+                <!-- Área de Botones -->
+                <div class="flex flex-col sm:flex-row justify-center items-center gap-6 min-h-[120px] relative" id="buttonsArea">
+                    <!-- Botón SÍ -->
+                    <button id="btnYes" onclick="acceptProposal()" class="bg-white text-rose-600 font-bold text-xl px-10 py-4 rounded-full shadow-lg hover:bg-rose-50 hover:scale-110 active:scale-95 transition-all duration-300 flex items-center gap-3 z-20">
+                        <i class="fa-solid fa-heart text-red-500"></i> ¡SÍ! ❤️
+                    </button>
+
+                    <!-- Botón NO Escurridizo -->
+                    <button id="btnNo" class="bg-rose-800/60 backdrop-blur-md text-white font-semibold text-lg px-8 py-3 rounded-full border border-white/30 shadow-md transition-all duration-200 z-20">
+                        No 💔
+                    </button>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Modal de Celebración -->
+    <div id="successModal" class="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
+        <div class="bg-white rounded-3xl p-8 max-w-md w-full text-center shadow-2xl border-4 border-pink-300 transform scale-90 transition-transform duration-300" id="modalContent">
+            <div class="text-6xl mb-3">🚗 💕 🎉</div>
+            <h3 class="font-romantic text-5xl text-rose-600 mb-2">¡Sabía que dirías que sí!</h3>
+            <p class="text-gray-700 text-lg mb-6 font-medium">
+                ¡280 kilómetros no son nada para lo mucho que te amo! ❤️<br>¡Comienza nuestra mejor historia juntos!
+            </p>
+            <div class="space-y-3">
+                <button onclick="triggerMoreConfetti()" class="w-full bg-gradient-to-r from-rose-500 to-pink-500 text-white font-bold py-3 rounded-2xl shadow-md hover:opacity-90 transition">
+                    ¡Celebrar nuestro amor! 🎊
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Generar corazones flotantes de fondo
+        function createFloatingHearts() {
+            const container = document.getElementById('heartsContainer');
+            const heartIcons = ['fa-heart', 'fa-car text-xs', 'fa-heart-pulse', 'fa-sparkles'];
+            const count = 25;
+
+            for (let i = 0; i < count; i++) {
+                const li = document.createElement('li');
+                li.className = 'heart-float';
+                
+                const size = Math.floor(Math.random() * 20) + 15;
+                const left = Math.random() * 100;
+                const duration = Math.random() * 15 + 10;
+                const delay = Math.random() * 10;
+                
+                li.style.left = `${left}%`;
+                li.style.animationDuration = `${duration}s`;
+                li.style.animationDelay = `${delay}s`;
+                li.style.fontSize = `${size}px`;
+                
+                const icon = document.createElement('i');
+                icon.className = `fa-solid ${heartIcons[Math.floor(Math.random() * heartIcons.length)]}`;
+                li.appendChild(icon);
+                
+                container.appendChild(li);
+            }
+        }
+
+        // Voltear tarjetas
+        function flipCard(cardElement) {
+            const inner = cardElement.querySelector('.card-inner');
+            inner.classList.toggle('is-flipped');
+        }
+
+        // Lógica del Botón "NO" Escurridizo
+        const btnNo = document.getElementById('btnNo');
+        const buttonsArea = document.getElementById('buttonsArea');
+
+        function moveNoButton() {
+            const areaRect = buttonsArea.getBoundingClientRect();
+            const btnRect = btnNo.getBoundingClientRect();
+
+            btnNo.style.position = 'absolute';
+
+            const maxX = areaRect.width - btnRect.width;
+            const maxY = areaRect.height - btnRect.height;
+
+            const randomX = Math.max(0, Math.floor(Math.random() * maxX));
+            const randomY = Math.max(0, Math.floor(Math.random() * maxY));
+
+            btnNo.style.left = `${randomX}px`;
+            btnNo.style.top = `${randomY}px`;
+        }
+
+        btnNo.addEventListener('mouseenter', moveNoButton);
+        btnNo.addEventListener('touchstart', function(e) {
+            e.preventDefault();
+            moveNoButton();
+        });
+        btnNo.addEventListener('click', function(e) {
+            e.preventDefault();
+            moveNoButton();
+        });
+
+        // Aceptar propuesta
+        function acceptProposal() {
+            const modal = document.getElementById('successModal');
+            const modalContent = document.getElementById('modalContent');
+            modal.classList.remove('hidden');
+            setTimeout(() => {
+                modalContent.classList.remove('scale-90');
+                modalContent.classList.add('scale-100');
+            }, 10);
+
+            launchConfetti();
+        }
+
+        // Confeti de celebración
+        function launchConfetti() {
+            const duration = 3 * 1000;
+            const animationEnd = Date.now() + duration;
+            const defaults = { startVelocity: 30, spread: 360, ticks: 60, zIndex: 100 };
+
+            function randomInRange(min, max) {
+                return Math.random() * (max - min) + min;
+            }
+
+            const interval = setInterval(function() {
+                const timeLeft = animationEnd - Date.now();
+
+                if (timeLeft <= 0) {
+                    return clearInterval(interval);
+                }
+
+                const particleCount = 50 * (timeLeft / duration);
+
+                confetti(Object.assign({}, defaults, {
+                    particleCount,
+                    origin: { x: randomInRange(0.1, 0.3), y: Math.random() - 0.2 },
+                    colors: ['#ff4d6d', '#ff758f', '#ffb3c1', '#ffffff']
+                }));
+                confetti(Object.assign({}, defaults, {
+                    particleCount,
+                    origin: { x: randomInRange(0.7, 0.9), y: Math.random() - 0.2 },
+                    colors: ['#ff4d6d', '#ff758f', '#ffb3c1', '#ffffff']
+                }));
+            }, 250);
+        }
+
+        function triggerMoreConfetti() {
+            confetti({
+                particleCount: 100,
+                spread: 70,
+                origin: { y: 0.6 },
+                colors: ['#ff4d6d', '#e63946', '#ffb3c1', '#ffffff']
+            });
+        }
+
+        window.onload = function() {
+            createFloatingHearts();
+        };
+    </script>
+</body>
+</html>
